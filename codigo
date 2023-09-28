@@ -1,0 +1,66 @@
+import csv
+
+def ler_arquivo_csv(nome_arquivo):
+    dados = []
+
+    with open(nome_arquivo, 'r', newline='') as arquivo_csv:
+        leitor_csv = csv.reader(arquivo_csv)
+        cabecalho = next(leitor_csv)
+
+        for linha in leitor_csv:
+            dados.append(linha)
+
+    return cabecalho, dados
+
+if __name__ == "__main__":
+    nome_arquivo = 'aniversariantes.csv.txt'
+    cabecalho, dados = ler_arquivo_csv(nome_arquivo)
+    
+    print("Conteúdo do arquivo CSV:")
+    print(cabecalho)
+    for linha in dados:
+        print(linha)
+
+import csv
+import datetime
+
+def encontrar_aniversariantes_atual(nome_arquivo):
+    aniversariantes = []
+
+    with open(nome_arquivo, 'r', newline='') as arquivo_csv:
+        leitor_csv = csv.DictReader(arquivo_csv)
+
+        for linha in leitor_csv:
+            nome = linha['Nome']
+            data_nascimento = datetime.datetime.strptime(linha['Data de Nascimento'], '%Y-%m-%d').date()
+            data_atual = datetime.date.today()
+
+            if data_nascimento.month == data_atual.month and data_nascimento.day == data_atual.day:
+                aniversariantes.append(nome)
+
+    return aniversariantes
+
+if __name__ == "__main__":
+    nome_arquivo = 'aniversariantes.csv.txt'
+    aniversariantes_do_dia = encontrar_aniversariantes_atual(nome_arquivo)
+
+    if aniversariantes_do_dia:
+        mensagem = f"Hoje é aniversário de: {', '.join(aniversariantes_do_dia)}!"
+    else:
+        mensagem = "Não há aniversariantes hoje."
+
+    print(mensagem)
+
+  !pip install openai
+
+openai_api_key = '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'
+
+import pandas as pd
+
+# Crie um DataFrame com seus resultados
+dados = {completion.choices[0].message.content.strip('\"')}
+
+df = pd.DataFrame(dados)
+
+# Salve o DataFrame em um arquivo CSV
+df.to_csv('dados.csv.txt', index=False)
