@@ -15,7 +15,7 @@ def ler_arquivo_csv(nome_arquivo):
 if __name__ == "__main__":
     nome_arquivo = 'aniversariantes.csv.txt'
     cabecalho, dados = ler_arquivo_csv(nome_arquivo)
-    
+
     print("Conteúdo do arquivo CSV:")
     print(cabecalho)
     for linha in dados:
@@ -51,9 +51,25 @@ if __name__ == "__main__":
 
     print(mensagem)
 
-  !pip install openai
+!pip install openai
 
 openai_api_key = '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'
+
+import openai
+openai.api_key = openai.api_key = openai_api_key
+
+completion = openai.ChatCompletion.create(
+  model="gpt-3.5-turbo",
+  messages=[
+    {"role": "system",
+     "content": "Você trabalha na equipe de marketing do time de futebol do Grêmio."
+     },
+    {"role": "user",
+     "content": f"Crie uma mensagem de parabéns ao sócio {', '.join(aniversariantes_do_dia)} , podendo utilizar as palavras: tricolor gaúcho, rei de copas ou imortal, com no maximo 140 caracteres e uma #ao final"}
+  ]
+)
+
+print(completion.choices[0].message.content.strip('\"'))
 
 import pandas as pd
 
