@@ -12,6 +12,8 @@ Original file is located at
 """
 
 import csv
+import datetime
+import pandas as pd
 
 def ler_arquivo_csv(nome_arquivo):
     dados = []
@@ -33,9 +35,6 @@ if __name__ == "__main__":
     print(cabecalho)
     for linha in dados:
         print(linha)
-
-import csv
-import datetime
 
 def encontrar_aniversariantes_atual(nome_arquivo):
     aniversariantes = []
@@ -84,7 +83,6 @@ completion = openai.ChatCompletion.create(
 
 print(completion.choices[0].message.content.strip('\"'))
 
-import pandas as pd
 
 # Crie um DataFrame com seus resultados
 dados = {completion.choices[0].message.content.strip('\"')}
